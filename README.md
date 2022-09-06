@@ -10,3 +10,15 @@
 
  - ***Explain the difference between a script and a transaction.***
  A script is used to read from the blockchain while a transaction mutates the data in some way.  It's analagous to a GET vs a POST request or a GraphQL query vs mutation.  Additionally transactions require a fee while scripts are free to read from the blockchain.
+
+
+## Chapter 2, Day 2
+ - ***What are the 5 Cadence Programming Language Pillars?***
+  1. Safter & Security
+  2. Clarity
+  3. Approachability
+  4. Developer Experience
+  5. Resource Oriented Programming
+
+ - ***In your opinion, even without knowing anything about the Blockchain or coding, why could the 5 Pillars be useful (you don't have to answer this for #5)?***
+  Its a holistic approach that is intended to increase the adoptino of blockchain technology.  Having the best functionality (speed & security) does not mean much if developers dont understand how to build on it or dont enjoy building on it.  With all 5 pillars, the technology is likely to grow in its tech as well as in its application adoption.
