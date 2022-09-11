@@ -22,3 +22,6 @@
 
  - ***In your opinion, even without knowing anything about the Blockchain or coding, why could the 5 Pillars be useful (you don't have to answer this for #5)?***
   Its a holistic approach that is intended to increase the adoptino of blockchain technology.  Having the best functionality (speed & security) does not mean much if developers dont understand how to build on it or dont enjoy building on it.  With all 5 pillars, the technology is likely to grow in its tech as well as in its application adoption.
+
+## Chapter 2, day 1
+Saved playground - https://play.onflow.org/d3a917fc-bb3f-4f74-8f6a-76d91aa0af70
