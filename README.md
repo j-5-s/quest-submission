@@ -12,7 +12,7 @@
  A script is used to read from the blockchain while a transaction mutates the data in some way.  It's analagous to a GET vs a POST request or a GraphQL query vs mutation.  Additionally transactions require a fee while scripts are free to read from the blockchain.
 
 
-## Chapter 2, Day 2
+## Chapter 1, Day 2
  - ***What are the 5 Cadence Programming Language Pillars?***
   1. Safter & Security
   2. Clarity
