@@ -24,7 +24,13 @@
   Its a holistic approach that is intended to increase the adoptino of blockchain technology.  Having the best functionality (speed & security) does not mean much if developers dont understand how to build on it or dont enjoy building on it.  With all 5 pillars, the technology is likely to grow in its tech as well as in its application adoption.
 
 ## Chapter 2, day 1
+***1. Deploy a contract to account 0x03 called "JacobTucker". Inside that contract, declare a constant variable named is, and make it have type String. Initialize it to "the best" when your contract gets deployed.***
+
 Saved playground - https://play.onflow.org/d3a917fc-bb3f-4f74-8f6a-76d91aa0af70
+
+***2. Check that your variable is actually equals "the best" by executing a script to read that variable. Include a screenshot of the output.***
+![Screen Shot 2022-09-11 at 1 04 51 PM](https://user-images.githubusercontent.com/666455/189540047-e7a96dd5-0aa0-4085-947c-8e7fc4ab8c2f.png)
+
 
 ## Chapter 2, day 2
 
