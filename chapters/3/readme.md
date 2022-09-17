@@ -110,58 +110,60 @@ pub contract PoemContract {
 
 1. Define your own contract that stores a dictionary of resources. Add a function to get a reference to one of the resources in the dictionary.
 
-https://play.onflow.org/cb3fc946-9e94-4000-9181-a49967a39e44
+  https://play.onflow.org/cb3fc946-9e94-4000-9181-a49967a39e44
 
-```cadence
-pub contract ResourceStuff {
+  ```cadence
+  pub contract ResourceStuff {
 
-    pub let dictionaryOfPets: @{String: Pet}
+      pub let dictionaryOfPets: @{String: Pet}
 
-    pub resource Pet {
-      pub(set) var name: String
+      pub resource Pet {
+        pub(set) var name: String
 
-      init(_name: String) {
-        self.name = _name
+        init(_name: String) {
+          self.name = _name
+        }
       }
-    }
 
-    pub fun createPet(name: String): @Pet {
-        return <- create Pet(_name: name)
+      pub fun createPet(name: String): @Pet {
+          return <- create Pet(_name: name)
 
-    }
+      }
 
-    pub fun changePetName(pet: &Pet) {
-      pet.name = "alice"
-    }
+      pub fun changePetName(pet: &Pet) {
+        pet.name = "alice"
+      }
 
-    pub fun addToDictionary(key: String, pet: @Pet) {
-      self.dictionaryOfPets[key] <-! pet
-    }
+      pub fun addToDictionary(key: String, pet: @Pet) {
+        self.dictionaryOfPets[key] <-! pet
+      }
 
-    pub fun getCharlieRef(): &Pet {
-      return (&self.dictionaryOfPets["charlie"] as &Pet?)!
-    }
+      pub fun getCharlieRef(): &Pet {
+        return (&self.dictionaryOfPets["charlie"] as &Pet?)!
+      }
 
 
-    init() {
-      self.dictionaryOfPets <- {}
+      init() {
+        self.dictionaryOfPets <- {}
 
-      let pet <- self.createPet(name: "charlie")
-      self.addToDictionary(key: pet.name, pet: <- pet)
+        let pet <- self.createPet(name: "charlie")
+        self.addToDictionary(key: pet.name, pet: <- pet)
 
-    }
-}
-```
+      }
+  }
+  ```
 
-1. Create a script that reads information from that resource using the reference from the function you defined in part 1. 
-```
-import ResourceStuff from 0x01
-pub fun main() {
-  let charlie = ResourceStuff.getCharlieRef()
-  log(charlie.name)
+2. Create a script that reads information from that resource using the reference from the function you defined in part 1. 
 
-}
-```
+  ```
+  import ResourceStuff from 0x01
+  pub fun main() {
+    let charlie = ResourceStuff.getCharlieRef()
+    log(charlie.name)
 
-2. Explain, in your own words, why references can be useful in Cadence.
-References are a way to read information on the blockchain without moving or providing priviledged access to it.  It can be useful for things like displaying metadata or nft images.
+  }
+  ```
+
+3. Explain, in your own words, why references can be useful in Cadence.
+
+  References are a way to read information on the blockchain without moving or providing priviledged access to it.  It can be useful for things like displaying metadata or nft images.
