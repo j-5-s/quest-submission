@@ -313,8 +313,6 @@ Functions
  -  contractFunc: can be called in area 1,2,3
  -  privateFunc: can be called in area 1 only
  
-You can use this diagram to help you:
-<img src="../images/boxdiagram.PNG" />
 
 ```cadence
 access(all) contract SomeContract {
