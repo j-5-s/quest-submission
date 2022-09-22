@@ -32,17 +32,17 @@
     https://play.onflow.org/18e3feb7-a271-4134-8886-0b05652ac46c?type=tx&id=8840b1cf-067c-4d94-8f80-bd9eb7535494&storage=none
 
 
-    ## Chapter 4, Day 2
+## Chapter 4, Day 2
 
 Please answer in the language of your choice.
 
 1. What does `.link()` do?
 
-  exposes your resources publicly (or privately) through a capability.
+      Exposes your resources publicly (or privately) through a capability.
 
 2. In your own words (no code), explain how we can use resource interfaces to only expose certain things to the `/public/` path.
 
-  By linking a interface publically you can restrict users access to other methods defined in the implementation of the class itself, limiting the access to just that interface.
+    By linking a interface publically you can restrict users access to other methods defined in the implementation of the class itself, limiting the access to just that interface.
 
 3. Deploy a contract that contains a resource that implements a resource interface. Then, do the following:
 
