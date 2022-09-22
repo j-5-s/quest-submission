@@ -115,5 +115,4 @@ Please answer in the language of your choice.
     - Idea #1: Do we really want everyone to be able to mint an NFT? 🤔. 
     - The ability to transfer an NFT to another account
     - The ability to sell an NFT
-
-    - Idea #2: If we want to read information about our NFTs inside our Collection, right now we have to take it out of the Collection to do so. Is this good?
+    - Idea #2: If we want to read information about our NFTs inside our Collection, right now we have to take it out of the Collection to do so. Is this good? - Create a link to read the collection/NFTS without withdrawing
