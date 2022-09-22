@@ -62,7 +62,7 @@ Please answer in the language of your choice.
               let destination <- HelloWorld.createDesitinationMarker(latitude: latitude, longitude: longitude, name:"atlanta");
               acct.save(<- destination, to: /storage/MyDestination)
 
-              acct.link<&HelloWorld.Destination{HelloWorld.City}>(/public/MyCity, target: /storage/MyDestination)
+              acct.link<&HelloWorld.Destination{HelloWorld.ICity}>(/public/MyCity, target: /storage/MyDestination)
             }
 
             execute {
@@ -76,14 +76,14 @@ Please answer in the language of your choice.
     2) Run a script that tries to access a non-exposed field in the resource interface, and see the error pop up.
         [script](https://play.onflow.org/18e3feb7-a271-4134-8886-0b05652ac46c?type=script&id=1b7b7a00-cf64-45bd-8b86-38f137d26ce9&storage=none)
         ```cadence
-        import HelloWorld from 0x01
+            import HelloWorld from 0x01
 
-        pub fun main(account: Address) {
-          let capa: Capability<&HelloWorld.Destination{HelloWorld.ILatLong}> = getAccount(account).getCapability<&HelloWorld.Destination{HelloWorld.ILatLong}>(/public/MyLatLng) 
-          let publicLatLng = capa.borrow() ?? panic("could not get")
+            pub fun main(account: Address) {
+              let capa: Capability<&HelloWorld.Destination{HelloWorld.ICity}> = getAccount(account).getCapability<&HelloWorld.Destination{HelloWorld.ICity}>(/public/MyCity) 
+              let publicLatLng = capa.borrow() ?? panic("could not get cability")
 
-          log(publicLatLng.latitude)
-        }
+              log(publicLatLng.latitude)
+            }
         ```
 
     3) Run the script and access something you CAN read from. Return it from the script.
