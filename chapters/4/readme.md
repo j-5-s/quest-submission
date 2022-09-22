@@ -30,3 +30,71 @@ Only the signers of the transaction are available to save something.
     1) A transaction that first saves the resource to account storage, then borrows a reference to it, and logs a field inside the resource.
 
     https://play.onflow.org/18e3feb7-a271-4134-8886-0b05652ac46c?type=tx&id=8840b1cf-067c-4d94-8f80-bd9eb7535494&storage=none
+
+
+    ## Chapter 4, Day 2
+
+Please answer in the language of your choice.
+
+1. What does `.link()` do?
+
+  exposes your resources publicly (or privately) through a capability.
+
+2. In your own words (no code), explain how we can use resource interfaces to only expose certain things to the `/public/` path.
+
+  By linking a interface publically you can restrict users access to other methods defined in the implementation of the class itself, limiting the access to just that interface.
+
+3. Deploy a contract that contains a resource that implements a resource interface. Then, do the following:
+
+    [Contract](https://play.onflow.org/18e3feb7-a271-4134-8886-0b05652ac46c?type=account&id=c96528eb-b154-45aa-b46a-8ae5ca45e815&storage=none)
+   
+
+    1) In a transaction, save the resource to storage and link it to the public with the restrictive interface. 
+        [Transaction](https://play.onflow.org/18e3feb7-a271-4134-8886-0b05652ac46c?type=tx&id=d8749e41-c445-47f4-a43f-acaa936165d3&storage=none)
+        ```cadence
+          import HelloWorld from 0x01
+
+          transaction {
+
+            prepare(acct: AuthAccount) {
+              let latitude = "33.7490"
+              let longitude = "84.3880"
+              let destination <- HelloWorld.createDesitinationMarker(latitude: latitude, longitude: longitude, name:"atlanta");
+              acct.save(<- destination, to: /storage/MyDestination)
+
+              acct.link<&HelloWorld.Destination{HelloWorld.City}>(/public/MyCity, target: /storage/MyDestination)
+            }
+
+            execute {
+              log("done")
+            }
+          }
+
+
+        ```
+
+    2) Run a script that tries to access a non-exposed field in the resource interface, and see the error pop up.
+        [script](https://play.onflow.org/18e3feb7-a271-4134-8886-0b05652ac46c?type=script&id=1b7b7a00-cf64-45bd-8b86-38f137d26ce9&storage=none)
+        ```cadence
+        import HelloWorld from 0x01
+
+        pub fun main(account: Address) {
+          let capa: Capability<&HelloWorld.Destination{HelloWorld.ILatLong}> = getAccount(account).getCapability<&HelloWorld.Destination{HelloWorld.ILatLong}>(/public/MyLatLng) 
+          let publicLatLng = capa.borrow() ?? panic("could not get")
+
+          log(publicLatLng.latitude)
+        }
+        ```
+
+    3) Run the script and access something you CAN read from. Return it from the script.
+        [script](https://play.onflow.org/18e3feb7-a271-4134-8886-0b05652ac46c?type=script&id=89ca1eca-f75e-43ab-9269-f5fa17381070&storage=none)
+        ```cadence
+        import HelloWorld from 0x01
+
+        pub fun main(account: Address) {
+          let capa: Capability<&HelloWorld.Destination{HelloWorld.ICity}> = getAccount(account).getCapability<&HelloWorld.Destination{HelloWorld.ICity}>(/public/MyCity) 
+          let publicCity = capa.borrow() ?? panic("could not get cability")
+
+          log(publicCity.name)
+        }
+        ```
