@@ -116,3 +116,99 @@ Please answer in the language of your choice.
     - The ability to transfer an NFT to another account
     - The ability to sell an NFT
     - Idea #2: If we want to read information about our NFTs inside our Collection, right now we have to take it out of the Collection to do so. Is this good? - Create a link to read the collection/NFTS without withdrawing
+
+## Chapter 4, day 4
+
+Because we had a LOT to talk about during this Chapter, I want you to do the following:
+
+Take our NFT contract so far and add comments to every single resource or function explaining what it's doing in your own words. Something like this:
+
+```cadence
+pub contract CryptoPoops {
+    pub var totalSuppy: UInt64
+    
+    // The primary resource that gets added to the collection and where metadata is stored.
+    pub resource NFT {
+
+        pub let id: UInt64
+        pub let name: String
+        pub let favouriteFood: String
+        pub let luckyNumber: Int
+
+        init(_name: String, _favouriteFood: String, _luckNumber: Int) {
+            self.id = CryptoPoops.totalSuppy 
+            self.name = _name
+            self.favouriteFood = _favouriteFood
+            self.luckyNumber = _luckNumber
+            CryptoPoops.totalSuppy = CryptoPoops.totalSuppy + (1 as UInt64)
+        }
+    }
+
+    // used to link so the collection to limit access that `Collection` would have.
+    // for example, if we were to link `Collection` then any user could call withdraw()
+    pub resource interface CollectionPublic {
+        pub fun getIDs(): [UInt64]
+        pub fun deposit(token: @NFT)
+        pub fun borrowNFT(id: UInt64): &NFT
+    }
+
+    // the primary implementation for the nft group of items belonging to an account
+    pub resource Collection: CollectionPublic {
+        pub var ownedNFTs: @{UInt64: NFT}
+        
+        // a method to store nfts in the collection
+        pub fun deposit(token: @NFT) {
+            self.ownedNFTs[token.id] <-! token
+        }
+        
+        a method to remove nfts, not only the AuthAccount can call this method as its not public
+        pub fun withdraw(id: UInt64): @NFT {
+            let token <-! self.ownedNFTs.remove(key: id) ?? panic("this collection does not contain nft with that id")
+
+            return <- token
+        }
+        
+        // a way to read all ids in the collection
+        pub fun getIDs(): [UInt64] {
+            return self.ownedNFTs.keys
+        }
+
+        // provides a way to return a reference to the NFT so that it can be read publically without moving it.
+        pub fun borrowNFT(id: UInt64): &NFT {
+            return (&self.ownedNFTs[id] as &NFT?)!
+        }
+
+        // create an empty collection when the contract is deployed
+        init() {
+            self.ownedNFTs <- {}
+        }
+
+        // cacade deletion of nfts when the collection is destroyed
+        destroy() {
+            destroy self.ownedNFTs
+        }
+    }
+
+    // accounts must first create a collection to store NFTs
+    pub fun createCollection(): @Collection {
+        return <- create Collection()
+    }
+
+    // A resource that is only available to an admin to mint NFTs
+    pub resource NFTMintor {
+        // a function the admin can call to create the nft
+        pub fun createNFT(name: String, favouriteFood: String, luckyNumber: Int): @NFT {
+            return <- create NFT(_name: name, _favouriteFood: favouriteFood, _luckNumber: luckyNumber)
+        }
+
+        init() {}
+    }
+
+    // initializing the contrac with 0 total support and creating the mintor resource on the deployer account
+    init() {
+        self.totalSuppy = 0
+
+        self.account.save(<- create NFTMintor(), to: /storage/Mintor)
+    }
+}
+```
