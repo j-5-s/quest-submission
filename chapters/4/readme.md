@@ -101,7 +101,6 @@ Please answer in the language of your choice.
 
 ## Chapter 4, Day 3
 
-## Quests
 
 1. Why did we add a Collection to this contract? List the two main reasons.
 
