@@ -129,49 +129,53 @@ https://play.onflow.org/1d79e3c6-d28e-40a4-93b6-3e07c910158c
 
 3. Please fix this code (Hint: There are two things wrong):
 
-        The contract interface:
-        ```cadence
-        pub contract interface ITest {
-          pub var number: Int
+    The contract interface:
+        
 
-          pub fun updateNumber(newNumber: Int) {
-            pre {
-              newNumber >= 0: "We don't like negative numbers for some reason. We're mean."
-            }
-            post {
-              self.number == newNumber: "Didn't update the number to be the new number."
-            }
-          }
+    ```cadence
+    pub contract interface ITest {
+      pub var number: Int
 
-          pub resource interface IStuff {
-            pub var favouriteActivity: String
-          }
-
-          pub resource Stuff: IStuff {
-            pub var favouriteActivity: String
-          }
+      pub fun updateNumber(newNumber: Int) {
+        pre {
+          newNumber >= 0: "We don't like negative numbers for some reason. We're mean."
         }
-        ```
-
-        The implementing contract:
-        ```cadence
-        pub contract Test: ITest {
-          pub var number: Int
-
-          pub fun updateNumber(newNumber: Int) {
-            self.number = 5
-          }
-
-          pub resource Stuff: ITest.IStuff {
-            pub var favouriteActivity: String
-
-            init() {
-              self.favouriteActivity = "Playing League of Legends."
-            }
-          }
-
-          init() {
-            self.number = 0
-          }
+        post {
+          self.number == newNumber: "Didn't update the number to be the new number."
         }
-        ```
+      }
+
+      pub resource interface IStuff {
+        pub var favouriteActivity: String
+      }
+
+      pub resource Stuff: IStuff {
+        pub var favouriteActivity: String
+      }
+    }
+    ```
+
+
+    The implementing contract:
+
+    ```cadence
+    pub contract Test: ITest {
+      pub var number: Int
+
+      pub fun updateNumber(newNumber: Int) {
+        self.number = 5
+      }
+
+      pub resource Stuff: ITest.IStuff {
+        pub var favouriteActivity: String
+
+        init() {
+          self.favouriteActivity = "Playing League of Legends."
+        }
+      }
+
+      init() {
+        self.number = 0
+      }
+    }
+    ```
