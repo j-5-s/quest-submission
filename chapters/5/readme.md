@@ -183,9 +183,11 @@ https://play.onflow.org/1d79e3c6-d28e-40a4-93b6-3e07c910158c
 ## Chapter 5, Day 3
 
 1. What does "force casting" with `as!` do? Why is it useful in our Collection?
+
 Force casting allows you to cast an object from a less generic to more generic type (or vice versa).  This allows you to expose methods on it for certain use cases but not others.
 
 2. What does `auth` do? When do we use it?
+
 It specically allows for downcasting references wheras unauthorized references only allow for upcasting.
 
 3. This last quest will be your most difficult yet. Take this contract:
